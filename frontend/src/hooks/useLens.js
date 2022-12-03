@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { authenticate_user, generateChallenge, getProfiles } from "../services/lens";
-import useLensProfile from "./useLensProfile";
 
 let ethersProvider
 if (window.ethereum) {
@@ -16,13 +15,10 @@ const signText = (text) => {
 const useLensAuth = () => {
 
     const [token, setToken] = useState(null);
-    const [refreshToken, setRefreshToken] = useState(null);
-    const lensProfile = useLensProfile();
     const [isLoading, setIsLoading] = useState(false);
     const [screen, setScreenn] = useState(false);
     const [lensHandle, setLenseHandle] = useState("");
     const [loadingText, setLoadingText] = useState('Fetching lens profile');
-    const [signButtonText, setSignButtonText] = useState("Sign-In with Lens");
 
     const [address, setAddress] = useState("");
     const [balance, setBalance] = useState("");
