@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { ethers } from "ethers";
 import { authenticate_user, generateChallenge, getProfiles } from "../services/lens";
 
@@ -18,13 +18,11 @@ const useLensAuth = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [screen, setScreenn] = useState(false);
     const [lensHandle, setLenseHandle] = useState("");
-    const [loadingText, setLoadingText] = useState('Fetching lens profile');
 
     const [address, setAddress] = useState("");
-    const [balance, setBalance] = useState("");
 
-    // hooks
     
+    // Polygon mumbai
     const networks = {
         polygon: {
           chainId: `0x${Number(80001).toString(16)}`,
@@ -38,6 +36,21 @@ const useLensAuth = () => {
           blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
         },
       };
+
+      //Polygon mainnet
+    //   const networks = {
+    //     polygon: {
+    //       chainId: `0x${Number(137).toString(16)}`,
+    //       chainName: "Polygon Mainnet",
+    //       nativeCurrency: {
+    //         name: "MATIC",
+    //         symbol: "MATIC",
+    //         decimals: 18,
+    //       },
+    //       rpcUrls: ["https://polygon-mainnet.infura.io"],
+    //       blockExplorerUrls: ["https://polygonscan.com/"],
+    //     },
+    //   };
 
     const connectWallet = async () => {
         setIsLoading(true);
@@ -58,8 +71,7 @@ const useLensAuth = () => {
         const Address = await account.getAddress();
         console.log("Wallet connected:",Address);
         setAddress(Address);
-        const Balance = ethers.utils.formatEther(await account.getBalance());
-        setBalance(Balance);
+        // const Balance = ethers.utils.formatEther(await account.getBalance());
         fetchLensToken(Address);
 
     }
@@ -91,7 +103,6 @@ const useLensAuth = () => {
             } catch (error) {
                 console.log("Couldn't Sign request");
                 console.log(error);
-                setSignButtonText("Couldn't sign request");
             }
     }
 
@@ -100,7 +111,6 @@ const useLensAuth = () => {
             connectWallet: connectWallet,
             accessToken: token,
             isLoading: isLoading,
-            loadingText: loadingText,
             screen: screen,
             lensHandle: lensHandle,
             fetchLensToken: fetchLensToken,

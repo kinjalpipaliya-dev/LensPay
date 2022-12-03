@@ -1,5 +1,4 @@
 import { ethers } from "ethers";
-import ERC20Tokens from "../tokens/tokens.json";
 import erc20ABI from "../contracts/erc20ABI.json";
 import { getProfileForHandle } from "../services/lens";
 import { useState } from "react";
@@ -28,7 +27,6 @@ const useSendTokens = () => {
                     // sending ERC20 token
                     let contract = new ethers.Contract(tokenAddress, erc20ABI, signer);
                     let numberOfTokens = ethers.utils.parseUnits(amount, 6);
-                    let balance = await contract.balanceOf(addressFrom);
                     try {
                         const transaction = await contract.transfer(ownerAddress, numberOfTokens);
                         const receipt = await transaction.wait();
