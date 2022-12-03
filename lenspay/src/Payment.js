@@ -1,12 +1,12 @@
 import "./App.css";
 import Header from "./components/Header";
-import Landing from "./components/Landing";
+import PaymentForm from "./components/PaymentForm";
 
 function App() {
   return (
-    <div className="app">
+    <div className="payment-page">
       <Header />
-      <Landing />
+      <PaymentForm />
     </div>
   );
 }
