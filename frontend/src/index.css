@@ -191,3 +191,25 @@ code {
 .btn-submit:hover {
   opacity: 0.96;
 }
+
+.loading {
+  height: 0;
+  width: 0;
+  padding: 14px;
+  border: 3px solid #ccc;
+  border-right-color: #bcfa59;
+  border-radius: 22px;
+  -webkit-animation: rotate 1s infinite linear;
+  animation: rotate 1s infinite linear;
+}
+
+@keyframes rotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes rotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
