@@ -13,6 +13,8 @@ const Landing = () => {
   const lensData = useLensAuth();
   const sendPayment = useSendTokens();
 
+  const [tokenData, setTokenData] = useState();
+
   const handleRef = useRef();
   const amountRef = useRef();
 
@@ -67,14 +69,18 @@ const Landing = () => {
             <select>
               <option>Select coin</option>
               {Object.keys(ERC20Tokens).map((item, index) => {
+                console.log("Tokens:",item);
                   return (
-                      <option value="Option 1" key={index}>{item}</option>
+                      <option key={index} onClick={() => setTokenData(ERC20Tokens[item])}>{item}</option>
                   )
               })}
             </select>
           </div>
           <div className="input-field">
-            <input type="submit" value="Submit" className="btn-submit" onClick={sendPayment.sendTokens(amountRef?.current?.value,handleRef?.current?.value,lensData.address)} />
+          <button type="button" className="btn" onClick={() => sendPayment.sendTokens(amountRef?.current?.value,handleRef?.current?.value,lensData.address,ERC20Tokens[tokenData?.symbol]?.address)}>
+            Submit
+            {sendPayment.isLoading && <div className="loading"></div>}
+          </button>
           </div>
         </form>
       )}
